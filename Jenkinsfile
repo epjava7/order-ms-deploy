@@ -2,11 +2,9 @@ pipeline {
     agent any
     environment {
         IMAGE = "${params.IMAGE}"
-        AWS_ACCESS_KEY_ID = credentials('aws-access-key') 
-        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key') 
     }
     stages {
-        stage('Configure Kubeconfig') {
+        stage('Configure Kubeconfig to connect kubectl to EKS') {
             steps {
                 sh 'aws eks update-kubeconfig --region us-east-1 --name eks_cluster'
             }
