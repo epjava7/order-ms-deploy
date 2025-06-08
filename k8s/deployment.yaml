@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-ms
+  template:
+    metadata:
+      labels:
+        app: order-ms
+    spec:
+      containers:
+        - name: order-ms
+          image: revets/order-ms:latest
+          ports:
+            - containerPort: 8081
