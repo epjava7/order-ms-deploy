@@ -1,12 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
+
+# Deployment name
 metadata:
   name: order-ms
+
+#Number of pods
 spec:
   replicas: 1
+
+  # manages pods with order-ms label
   selector:
     matchLabels:
       app: order-ms
+
+  # label for every pod in this deployment, must be same as the selector
   template:
     metadata:
       labels:

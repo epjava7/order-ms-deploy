@@ -1,9 +1,16 @@
 apiVersion: v1
 kind: Service
+
+# Name of service
 metadata:
   name: order-ms
+
+# Default ClusterIP type. Internal load balancer 
+# with stable DNS name/IP Addy to access service
 spec:
   type: ClusterIP 
+
+  # pods with order-ms label
   selector:
     app: order-ms
   ports:
