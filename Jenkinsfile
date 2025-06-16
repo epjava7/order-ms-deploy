@@ -29,10 +29,13 @@ pipeline {
             }
         }
 
+        // need aws creds here bc kubectl needs auth with EKS
         stage('Deploy to EKS') {
             steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
-                sh 'kubectl apply -f k8s/service.yaml'
+                withAWS(credentials: 'aws-creds', region: "${AWS_REGION}") {
+                    sh 'kubectl apply -f k8s/deployment.yaml'
+                    sh 'kubectl apply -f k8s/service.yaml'
+                }
             }
         }
 
