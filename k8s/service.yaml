@@ -5,10 +5,9 @@ kind: Service
 metadata:
   name: order-ms
 
-# Default ClusterIP type. Internal load balancer 
-# with stable DNS name/IP Addy to access service
+# load balancer type for ELB external access
 spec:
-  type: ClusterIP 
+  type: LoadBalancer
 
   # pods with order-ms label
   selector:
