@@ -1,5 +1,4 @@
 pipeline {
-    agent any
     environment {
         IMAGE = "${params.IMAGE}"
     }
@@ -26,7 +25,6 @@ pipeline {
                 sh "sed -i 's|image: .*|image: $IMAGE|' k8s/deployment.yaml"
             }
         }
-
         stage('Deploy to EKS') {
             steps {
                 sh 'kubectl apply -f k8s/deployment.yaml'
