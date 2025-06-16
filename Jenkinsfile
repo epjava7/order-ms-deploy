@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Terraform Init') {
             steps {
-                withAWS(credentials: 'my-aws-creds', region: "${AWS_REGION}") {
+                withAWS(credentials: 'aws-creds', region: "${AWS_REGION}") {
                     sh 'cd terraform && terraform init'
                 }
             }
@@ -15,7 +15,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                withAWS(credentials: 'my-aws-creds', region: "${AWS_REGION}") {
+                withAWS(credentials: 'aws-creds', region: "${AWS_REGION}") {
                     sh 'cd terraform && terraform apply -auto-approve'
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Connect kubectl to eks cluster') {
             steps {
-                withAWS(credentials: 'my-aws-creds', region: "${AWS_REGION}") {
+                withAWS(credentials: 'aws-creds', region: "${AWS_REGION}") {
                     sh 'aws eks update-kubeconfig --region ${AWS_REGION} --name eks_cluster'
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
         stage('Terraform Destroy') {
             steps {
                 input message: 'Destroy?', ok: 'Yes'
-                withAWS(credentials: 'my-aws-creds', region: "${AWS_REGION}") {
+                withAWS(credentials: 'aws-creds', region: "${AWS_REGION}") {
                     sh 'cd terraform && terraform destroy -auto-approve'
                 }
             }
